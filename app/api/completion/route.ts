@@ -1,4 +1,5 @@
 import OpenAI from 'openai';
+import { SIDONNAISUUS_PDF_CONTENT } from '@/utils/pdfContent';
 
 export const runtime = 'edge';
 
@@ -25,19 +26,42 @@ export async function POST(req: Request) {
     const stream = new TransformStream();
     const writer = stream.writable.getWriter();
 
+    // Format previously filled fields for context
+    const filledFieldsContext = body.formData ?
+      Object.entries(body.formData)
+        .filter(([key, value]) => value && key !== body.field.id)
+        .map(([key, value]) => `${key}: ${value}`)
+        .join('\n')
+      : '';
+
     const openaiStream = await openai.chat.completions.create({
-      model: 'gpt-3.5-turbo',
+      model: 'gpt-4o-mini',
       messages: [
         {
           role: 'system',
-          content: 'You are a helpful assistant. Always use proper spacing and punctuation in your responses.'
+          content: `You are a helpful assistant guiding users in filling out a sidonnaisuusilmoitus (declaration of interests) form.
+
+Here is the official documentation about sidonnaisuusilmoitus:
+
+${SIDONNAISUUS_PDF_CONTENT}
+
+${filledFieldsContext ? `\nPreviously filled fields in the form:\n${filledFieldsContext}` : ''}
+
+Always use proper spacing and punctuation in your responses.`
         },
         {
           role: 'system',
           content: `You are helping with the ${body.field.label} field. ${body.field.instructions}
 When providing suggestions, format them as:
 SUGGESTION: [your suggested text]
-You can provide multiple suggestions by using SUGGESTION: multiple times.`
+You can provide multiple suggestions by using SUGGESTION: multiple times.
+
+Remember to:
+- Keep suggestions consistent with the official requirements
+- Include all necessary details as specified in the documentation
+- Maintain professional tone
+- Provide practical examples that follow the documentation guidelines
+- Consider previously filled fields when making suggestions${filledFieldsContext ? ' to maintain consistency' : ''}`
         },
         ...body.messages
       ],
