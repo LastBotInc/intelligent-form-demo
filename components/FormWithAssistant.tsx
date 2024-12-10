@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import AIAssistant from './AIAssistant';
 import { parsePdfToText } from '../utils/pdfParser';
+import Image from 'next/image';
 
 interface FieldConfig {
   id: string;
@@ -117,6 +118,7 @@ export default function FormWithAssistant() {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async function handlePdfUpload(file: File) {
     try {
       const buffer = await file.arrayBuffer();
@@ -132,7 +134,14 @@ export default function FormWithAssistant() {
     <div className="flex min-h-screen bg-gray-100">
       <div className="w-full p-8">
         <div className="mb-8">
-          <img src="/outokumpu-logo.png" alt="Outokumpu" className="h-12 mb-4" />
+          <Image
+            src="/outokumpu-logo.png"
+            alt="Outokumpu"
+            width={48}
+            height={48}
+            className="h-12 mb-4"
+            priority
+          />
           <h1 className="text-2xl font-bold mb-2 text-gray-800">Sidonnaisuusilmoitus tarkastuslautakunnalle</h1>
           <p className="text-sm text-gray-700 mb-4">
             Kuntalain 84 §:n mukaan kunnan luottamushenkilön ja viranhaltijan on tehtävä sidonnaisuusilmoitus johtotehtävistään sekä luottamustoimistaan elinkeinotoimintaa harjoittavissa yrityksissä ja muissa yhteisöissä, merkittävästä varallisuudestaan sekä muista sidonnaisuuksista, joilla voi olla merkitystä luottamus- ja virkatehtävien hoitamisessa.
