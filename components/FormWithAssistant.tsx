@@ -129,22 +129,22 @@ export default function FormWithAssistant() {
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-gray-100">
       <div className="w-full p-8">
         <div className="mb-8">
           <img src="/outokumpu-logo.png" alt="Outokumpu" className="h-12 mb-4" />
-          <h1 className="text-2xl font-bold mb-2 text-gray-900">Sidonnaisuusilmoitus tarkastuslautakunnalle</h1>
-          <p className="text-sm text-gray-600 mb-4">
+          <h1 className="text-2xl font-bold mb-2 text-gray-800">Sidonnaisuusilmoitus tarkastuslautakunnalle</h1>
+          <p className="text-sm text-gray-700 mb-4">
             Kuntalain 84 §:n mukaan kunnan luottamushenkilön ja viranhaltijan on tehtävä sidonnaisuusilmoitus johtotehtävistään sekä luottamustoimistaan elinkeinotoimintaa harjoittavissa yrityksissä ja muissa yhteisöissä, merkittävästä varallisuudestaan sekä muista sidonnaisuuksista, joilla voi olla merkitystä luottamus- ja virkatehtävien hoitamisessa.
           </p>
         </div>
 
         <form className="space-y-6">
-          <div className="border p-4 rounded-lg bg-white">
-            <h2 className="text-xl font-semibold mb-4">Ilmoittajan henkilötiedot</h2>
+          <div className="border p-6 rounded-lg bg-white shadow-sm">
+            <h2 className="text-xl font-bold mb-4 text-gray-800">Ilmoittajan henkilötiedot</h2>
             {formFields.slice(0, 4).map((field) => (
               <div key={field.id} className="space-y-2 mb-4">
-                <label className="block text-sm font-medium text-gray-900">
+                <label className="block text-sm font-semibold text-gray-800">
                   {field.label}
                 </label>
                 <input
@@ -154,17 +154,17 @@ export default function FormWithAssistant() {
                   onChange={(e) => handleFieldChange(field.id, e.target.value)}
                   onFocus={() => handleFieldFocus(field)}
                 />
-                <p className="text-sm text-gray-500">{field.instructions}</p>
+                <p className="text-sm text-gray-600">{field.instructions}</p>
               </div>
             ))}
           </div>
 
-          <div className="border p-4 rounded-lg bg-white">
-            <h2 className="text-xl font-semibold mb-4">Sidonnaisuudet</h2>
-            <p className="text-sm text-gray-600 mb-4">(käytä tarvittaessa lomakkeen kääntöpuolta)</p>
+          <div className="border p-6 rounded-lg bg-white shadow-sm">
+            <h2 className="text-xl font-bold mb-4 text-gray-800">Sidonnaisuudet</h2>
+            <p className="text-sm text-gray-700 mb-4">(käytä tarvittaessa lomakkeen kääntöpuolta)</p>
             {formFields.slice(4, -1).map((field) => (
               <div key={field.id} className="space-y-2 mb-6">
-                <label className="block text-sm font-medium text-gray-900">
+                <label className="block text-sm font-semibold text-gray-800">
                   {field.label}
                 </label>
                 <textarea
@@ -180,22 +180,22 @@ export default function FormWithAssistant() {
                     id={`${field.id}-none`}
                     checked={!formData[field.id]}
                     onChange={(e) => handleFieldChange(field.id, e.target.checked ? '' : 'Ei ilmoitettavaa')}
-                    className="mr-2"
+                    className="mr-2 h-4 w-4 text-blue-600"
                   />
-                  <label htmlFor={`${field.id}-none`} className="text-sm text-gray-600">
+                  <label htmlFor={`${field.id}-none`} className="text-sm text-gray-700">
                     Ei ilmoitettavaa
                   </label>
                 </div>
-                <p className="text-sm text-gray-500">{field.instructions}</p>
+                <p className="text-sm text-gray-600">{field.instructions}</p>
               </div>
             ))}
           </div>
 
-          <div className="border p-4 rounded-lg bg-white">
-            <h2 className="text-xl font-semibold mb-4">Vakuutan, että antamani tiedot ovat oikeita</h2>
+          <div className="border p-6 rounded-lg bg-white shadow-sm">
+            <h2 className="text-xl font-bold mb-4 text-gray-800">Vakuutan, että antamani tiedot ovat oikeita</h2>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-900">Päivämäärä</label>
+                <label className="block text-sm font-semibold text-gray-800">Päivämäärä</label>
                 <input
                   type="date"
                   className="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-600 bg-white text-gray-900"
@@ -204,15 +204,15 @@ export default function FormWithAssistant() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-900">Allekirjoitus</label>
-                <div className="w-full p-2 border rounded-md bg-gray-100 text-gray-500 text-sm">
+                <label className="block text-sm font-semibold text-gray-800">Allekirjoitus</label>
+                <div className="w-full p-2 border rounded-md bg-gray-100 text-gray-700 text-sm">
                   Allekirjoitetaan paperilla
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="text-sm text-gray-600 mt-4">
+          <div className="text-sm text-gray-700 mt-4">
             <p>Täytetty lomake osoitetaan tarkastuslautakunnalle ja lähetetään kaupungin osoitteeseen.</p>
             <p>Lisätietoja: tarkastuslautakunnan sihteeri Päivi Karjalainen, puh. 044 755 9211, paivi.karjalainen@outokummunkaupunki.fi</p>
             <p className="mt-2">
